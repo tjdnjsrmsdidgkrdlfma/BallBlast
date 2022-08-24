@@ -34,6 +34,5 @@ public class Ball : MonoBehaviour
             hit_point -= other.gameObject.GetComponent<PlayerBullet>().damage;
             Destroy(other.gameObject);
         }
-
     }
 }

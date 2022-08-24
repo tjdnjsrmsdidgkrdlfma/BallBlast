@@ -6,6 +6,8 @@ public class CreateBall : MonoBehaviour
 {
     public float spawn_cooltime;
 
+    float random_horizontal_force;
+
     Vector2 create_position = new Vector2(0, 9);
     GameObject ball_prefab;
 
@@ -19,20 +21,22 @@ public class CreateBall : MonoBehaviour
     {
         while (true)
         {
-            MakeRandomCoordinate();
+            MakeRandomValue();
             SpawnBall();
 
             yield return new WaitForSeconds(spawn_cooltime);
         }
     }
 
-    void MakeRandomCoordinate()
+    void MakeRandomValue()
     {
-        create_position.x = Random.Range(-3.0f, 3.0f);
+        create_position.x = Random.Range(-3f, 3f);
+        random_horizontal_force = Random.Range(-100f, 100f);
     }
 
     void SpawnBall()
     {
         GameObject ball = Instantiate(ball_prefab, create_position, Quaternion.identity);
+        ball.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * random_horizontal_force);
     }
 }
