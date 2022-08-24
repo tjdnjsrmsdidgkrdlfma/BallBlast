@@ -1,13 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
     public int hit_point;
+    public int split_time;
+
+    int max_hit_point;
 
     GameObject ball_hit_point;
+    GameObject ball_prefab;
 
     void Start()
     {
@@ -16,15 +19,35 @@ public class Ball : MonoBehaviour
 
     void Initialization()
     {
-        hit_point = Random.Range(0, 101);
+        max_hit_point = hit_point;
+
         ball_hit_point = this.transform.Find("BallHitPoint").gameObject;
+        ball_prefab = Resources.Load("Prefabs/Ball") as GameObject;
+
+        transform.localScale = new Vector2(1 + 0.5f * split_time, 1 + 0.5f * split_time); //1 1.5 2
     }
 
     void Update()
     {
         ball_hit_point.GetComponent<TextMeshPro>().text = hit_point.ToString();
         if (hit_point <= 0)
+        {
+            if (split_time > 0)
+            {
+                Vector2 temp = this.transform.position;
+
+                GameObject child_ball_left = Instantiate(ball_prefab, new Vector2(temp.x - 1, temp.y), Quaternion.identity);
+                child_ball_left.GetComponent<Ball>().hit_point = max_hit_point / 2;
+                child_ball_left.GetComponent<Ball>().split_time = split_time - 1;
+                child_ball_left.GetComponent<Ball>().GetComponent<Rigidbody2D>().AddForce(Vector2.right * -100);
+
+                GameObject child_ball_right = Instantiate(ball_prefab, new Vector2(temp.x + 1, temp.y), Quaternion.identity);
+                child_ball_right.GetComponent<Ball>().hit_point = max_hit_point / 2;
+                child_ball_right.GetComponent<Ball>().split_time = split_time - 1;
+                child_ball_right.GetComponent<Ball>().GetComponent<Rigidbody2D>().AddForce(Vector2.right * 100);
+            }
             Destroy(this.gameObject);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

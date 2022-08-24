@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            GameObject player_bullet = MonoBehaviour.Instantiate(player_bullet_prefab, this.transform.position + Vector3.up, Quaternion.identity);
+            GameObject player_bullet = Instantiate(player_bullet_prefab, this.transform.position + Vector3.up, Quaternion.identity);
             player_bullet.GetComponent<PlayerBullet>().damage = 10;
 
             yield return new WaitForSeconds(shot_cooltime);
