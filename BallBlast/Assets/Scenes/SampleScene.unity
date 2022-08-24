@@ -294,7 +294,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -431,7 +431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  shot_cooltime: 0.5
+  shot_cooltime: 0.25
 --- !u!50 &1230520685
 Rigidbody2D:
   serializedVersion: 4
@@ -452,7 +452,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 6
 --- !u!61 &1230520686
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 1724739420}
   - component: {fileID: 1724739421}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: CreateBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -523,3 +523,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37374e85b12e9c64ba5df82bec025da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawn_cooltime: 3

@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
         while (true)
         {
             GameObject player_bullet = MonoBehaviour.Instantiate(player_bullet_prefab, this.transform.position + Vector3.up, Quaternion.identity);
+            player_bullet.GetComponent<PlayerBullet>().damage = 10;
 
             yield return new WaitForSeconds(shot_cooltime);
         }
@@ -55,5 +56,14 @@ public class Player : MonoBehaviour
         Vector2 move = new Vector2(horizontal, 0);
 
         rigidbody2d.velocity = move * speed;
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ball") == true)
+        {
+            Debug.Log("GameOver");
+            Destroy(this.gameObject);
+        }
     }
 }

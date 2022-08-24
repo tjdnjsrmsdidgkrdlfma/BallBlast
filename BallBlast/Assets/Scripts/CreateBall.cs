@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CreateBall : MonoBehaviour
 {
-    float spawn_cooltime = 1f;
+    public float spawn_cooltime;
 
     Vector2 create_position = new Vector2(0, 9);
     GameObject ball_prefab;
@@ -33,6 +33,6 @@ public class CreateBall : MonoBehaviour
 
     void SpawnBall()
     {
-        GameObject ball = MonoBehaviour.Instantiate(ball_prefab, create_position, Quaternion.identity);
+        GameObject ball = Instantiate(ball_prefab, create_position, Quaternion.identity);
     }
 }

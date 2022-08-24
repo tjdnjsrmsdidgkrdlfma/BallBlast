@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
 {
+    public int damage;
+
     int speed;
 
     Rigidbody2D rigidbody2d;
