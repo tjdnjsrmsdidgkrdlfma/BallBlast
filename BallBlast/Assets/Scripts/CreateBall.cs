@@ -4,23 +4,27 @@ using UnityEngine;
 
 public class CreateBall : MonoBehaviour
 {
+    public int number_to_create;
     public float spawn_cooltime;
 
     int random_split_time;
     float random_horizontal_force;
 
-    Vector2 create_position = new Vector2(0, 9);
+    Vector2 create_position;
     GameObject ball_prefab;
 
     void Start()
     {
+        create_position = new Vector2(0, 11);
         ball_prefab = Resources.Load("Prefabs/Ball") as GameObject;
         StartCoroutine(CreateBall_());
     }
 
     IEnumerator CreateBall_()
     {
-        while (true)
+        int i;
+
+        for (i = 0; i < number_to_create; i++)
         {
             MakeRandomValue();
             SpawnBall();
@@ -39,7 +43,7 @@ public class CreateBall : MonoBehaviour
     void SpawnBall()
     {
         GameObject ball = Instantiate(ball_prefab, create_position, Quaternion.identity);
-        ball.gameObject.GetComponent<Ball>().hit_point = Random.Range(1, 101);
+        ball.gameObject.GetComponent<Ball>().hit_point = Random.Range(1, 50) * (random_split_time * 2 + 1);
         ball.gameObject.GetComponent<Ball>().split_time = random_split_time;
         ball.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * random_horizontal_force);
     }

@@ -25,11 +25,12 @@ public class Ball : MonoBehaviour
         ball_prefab = Resources.Load("Prefabs/Ball") as GameObject;
 
         transform.localScale = new Vector2(1 + 0.5f * split_time, 1 + 0.5f * split_time); //1 1.5 2
+
+        ball_hit_point.GetComponent<TextMeshPro>().text = hit_point.ToString();
     }
 
     void Update()
     {
-        ball_hit_point.GetComponent<TextMeshPro>().text = hit_point.ToString();
         if (hit_point <= 0)
         {
             if (split_time > 0)
@@ -55,6 +56,7 @@ public class Ball : MonoBehaviour
         if (other.gameObject.CompareTag("PlayerBullet") == true)
         {
             hit_point -= other.gameObject.GetComponent<PlayerBullet>().damage;
+            ball_hit_point.GetComponent<TextMeshPro>().text = hit_point.ToString();
             Destroy(other.gameObject);
         }
     }
