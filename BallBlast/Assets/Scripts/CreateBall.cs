@@ -15,6 +15,7 @@ public class CreateBall : MonoBehaviour
 
     void Start()
     {
+        number_to_create = Random.Range(15, 21);
         create_position = new Vector2(0, 11);
         ball_prefab = Resources.Load("Prefabs/Ball") as GameObject;
         StartCoroutine(CreateBall_());

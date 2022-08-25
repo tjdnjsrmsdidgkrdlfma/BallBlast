@@ -8,9 +8,6 @@ public class Player : MonoBehaviour
     public int speed;
     public float shot_cooltime;
 
-    float horizontal;
-
-    Rigidbody2D rigidbody2d;
     GameObject player_bullet_prefab;
 
     void Start()
@@ -21,7 +18,6 @@ public class Player : MonoBehaviour
 
     void Initialization()
     {
-        rigidbody2d = this.gameObject.GetComponent<Rigidbody2D>();
         player_bullet_prefab = Resources.Load("Prefabs/PlayerBullet") as GameObject;
     }
 
@@ -29,8 +25,11 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            GameObject player_bullet = Instantiate(player_bullet_prefab, this.transform.position + Vector3.up, Quaternion.identity);
-            player_bullet.GetComponent<PlayerBullet>().damage = 10;
+            if (Input.GetMouseButton(0) == true)
+            {
+                GameObject player_bullet = Instantiate(player_bullet_prefab, this.transform.position + Vector3.up, Quaternion.identity);
+                player_bullet.GetComponent<PlayerBullet>().damage = 10;
+            }
 
             yield return new WaitForSeconds(shot_cooltime);
         }
@@ -43,7 +42,7 @@ public class Player : MonoBehaviour
 
     void GetInput()
     {
-        horizontal = Input.GetAxis("Horizontal");
+
     }
 
     void FixedUpdate()
@@ -53,9 +52,7 @@ public class Player : MonoBehaviour
 
     void MovePlayer()
     {
-        Vector2 move = new Vector2(horizontal, 0);
-
-        rigidbody2d.velocity = move * speed;
+        this.transform.position = new Vector2(Mathf.Clamp(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, -3.1f, 3.1f), -6.5f);
     }
 
     void OnCollisionEnter2D(Collision2D other)
