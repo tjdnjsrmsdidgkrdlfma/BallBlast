@@ -38,12 +38,12 @@ public class Ball : MonoBehaviour
                 Vector2 temp = this.transform.position;
 
                 GameObject child_ball_left = Instantiate(ball_prefab, new Vector2(temp.x - 1, temp.y), Quaternion.identity);
-                child_ball_left.GetComponent<Ball>().hit_point = max_hit_point / 2;
+                child_ball_left.GetComponent<Ball>().hit_point = max_hit_point == 1 ? 1 : max_hit_point / 2; //0이 되지 않게 하는 코드
                 child_ball_left.GetComponent<Ball>().split_time = split_time - 1;
                 child_ball_left.GetComponent<Ball>().GetComponent<Rigidbody2D>().AddForce(Vector2.right * -100);
 
                 GameObject child_ball_right = Instantiate(ball_prefab, new Vector2(temp.x + 1, temp.y), Quaternion.identity);
-                child_ball_right.GetComponent<Ball>().hit_point = max_hit_point / 2;
+                child_ball_right.GetComponent<Ball>().hit_point = max_hit_point == 1 ? 1 : max_hit_point / 2; //0이 되지 않게 하는 코드
                 child_ball_right.GetComponent<Ball>().split_time = split_time - 1;
                 child_ball_right.GetComponent<Ball>().GetComponent<Rigidbody2D>().AddForce(Vector2.right * 100);
             }

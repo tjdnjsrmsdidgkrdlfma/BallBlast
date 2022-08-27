@@ -12,7 +12,7 @@ public class PlayerBullet : MonoBehaviour
 
     void Start()
     {
-        speed = 5;
+        speed = 25;
         rigidbody2d = GetComponent<Rigidbody2D>();
         MoveBullet();
     }
