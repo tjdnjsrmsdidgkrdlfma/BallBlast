@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+
+        #region 세이브 로드 관련 함수
+
         file_path = Application.persistentDataPath + "/SaveData.txt";
 
         if (File.Exists(file_path))
@@ -33,11 +38,12 @@ public class GameManager : MonoBehaviour
 
         MoveDataToLocal();
 
-        bullet_damage = 1 + bullet_damage_upgrade * 10 / 100; //기본 1에서 10번 업그레이드 할 때 마다 1씩 증가
-        bullet_fire_speed = 1.0f / (bullet_fire_speed_upgrade + 3); //기본 속도가 3shot/s
+        #endregion
 
         coins = 100;
     }
+
+    #region 세이브 로드 관련 함수
 
     public void ResetSaveData()
     {
@@ -66,6 +72,14 @@ public class GameManager : MonoBehaviour
         bullet_damage_upgrade = int.Parse(data.bullet_damage_upgrade);
         bullet_fire_speed_upgrade = int.Parse(data.bullet_fire_speed_upgrade);
 
+    }
+
+    #endregion
+
+    void OnLevelWasLoaded() //나중에 수정할 예정
+    {
+        bullet_damage = 1 + bullet_damage_upgrade * 10 / 100; //기본 1에서 10번 업그레이드 할 때 마다 1씩 증가
+        bullet_fire_speed = 1.0f / (bullet_fire_speed_upgrade + 3); //기본 속도가 3shot/s
     }
 }
 

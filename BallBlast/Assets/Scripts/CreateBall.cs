@@ -6,12 +6,11 @@ public class CreateBall : MonoBehaviour
 {
     public int number_to_create;
     public float spawn_cooltime;
+    public bool create_ball_ended;
 
     int random_split_time;
     float random_horizontal_force;
     int round;
-    bool create_ball_ended;
-    bool all_bullet_destroyed;
 
     Vector2 create_position;
     GameObject ball_prefab;
@@ -26,7 +25,6 @@ public class CreateBall : MonoBehaviour
         create_position = new Vector2(0, 8.5f);
         round = gamemanager.GetComponent<GameManager>().round;
         create_ball_ended = false;
-        all_bullet_destroyed = false;
 
         StartCoroutine(CreateBall_());
     }
@@ -56,24 +54,8 @@ public class CreateBall : MonoBehaviour
     void SpawnBall()
     {
         GameObject ball = Instantiate(ball_prefab, create_position, Quaternion.identity);
-        ball.gameObject.GetComponent<Ball>().hit_point = Random.Range(1, round * 5);
+        ball.gameObject.GetComponent<Ball>().hit_point = Random.Range(1, 11);
         ball.gameObject.GetComponent<Ball>().split_time = random_split_time;
         ball.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * random_horizontal_force);
-    }
-
-    void Update()
-    {
-        CheckRoundClear();
-    }
-
-    void CheckRoundClear()
-    {
-        if (create_ball_ended == true)
-        {
-            if (GameObject.Find("Ball(Clone)") == null)
-            {
-                all_bullet_destroyed = true;
-            }
-        }
     }
 }
