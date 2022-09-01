@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-public class MainScreenManager : MonoBehaviour
+public class ButtonManager : MonoBehaviour
 {
     int coins;
     int bullet_damage_upgrade_cost;
@@ -22,6 +21,18 @@ public class MainScreenManager : MonoBehaviour
         upgrade_buttons = GameObject.Find("UpgradeButtons");
         upgrade_text = GameObject.Find("UpgradeText");
         coin_text = GameObject.Find("CoinText");
+
+        coins = gamemanager.GetComponent<GameManager>().coins;
+
+        bullet_damage_upgrade_cost = gamemanager.GetComponent<GameManager>().bullet_damage_upgrade * 10 + 10;
+        upgrade_buttons.transform.Find("BulletDamageUpgradeButton").transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text =
+            bullet_damage_upgrade_cost.ToString();
+
+        bullet_fire_speed_upgrade_cost = gamemanager.GetComponent<GameManager>().bullet_fire_speed_upgrade * 10 + 10;
+        upgrade_buttons.transform.Find("BulletFireSpeedUpgradeButton").transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text =
+            bullet_fire_speed_upgrade_cost.ToString();
+
+        coin_text.GetComponent<TextMeshProUGUI>().text = "Coins: " + coins;
     }
 
     public void PlayButton()
@@ -46,10 +57,15 @@ public class MainScreenManager : MonoBehaviour
 
     public void BulletDamageUpgradeButton()
     {
-        if(coins >= bullet_damage_upgrade_cost)
+        if (coins >= bullet_damage_upgrade_cost)
         {
             gamemanager.GetComponent<GameManager>().bullet_damage_upgrade++;
             gamemanager.GetComponent<GameManager>().coins -= bullet_damage_upgrade_cost;
+            bullet_damage_upgrade_cost = gamemanager.GetComponent<GameManager>().bullet_damage_upgrade * 10 + 10;
+            upgrade_buttons.transform.Find("BulletDamageUpgradeButton").transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text =
+            bullet_damage_upgrade_cost.ToString();
+            coins = gamemanager.GetComponent<GameManager>().coins;
+            coin_text.GetComponent<TextMeshProUGUI>().text = "Coins: " + coins;
         }
         else
         {
@@ -63,24 +79,15 @@ public class MainScreenManager : MonoBehaviour
         {
             gamemanager.GetComponent<GameManager>().bullet_fire_speed_upgrade++;
             gamemanager.GetComponent<GameManager>().coins -= bullet_fire_speed_upgrade_cost;
+            bullet_fire_speed_upgrade_cost = gamemanager.GetComponent<GameManager>().bullet_fire_speed_upgrade * 10 + 10;
+            upgrade_buttons.transform.Find("BulletFireSpeedUpgradeButton").transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text =
+            bullet_fire_speed_upgrade_cost.ToString();
+            coins = gamemanager.GetComponent<GameManager>().coins;
+            coin_text.GetComponent<TextMeshProUGUI>().text = "Coins: " + coins;
         }
         else
         {
 
         }
-    }
-
-    void Update() // button 스크립트와 이 부분 분리
-    {
-        //coins = gamemanager.GetComponent<GameManager>().coins;
-        //bullet_damage_upgrade_cost = gamemanager.GetComponent<GameManager>().bullet_damage_upgrade * 10 + 10;
-        //bullet_fire_speed_upgrade_cost = gamemanager.GetComponent<GameManager>().bullet_fire_speed_upgrade * 10 + 10;
-
-        //upgrade_buttons.transform.Find("BulletDamageUpgradeButton").transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text =
-        //    bullet_damage_upgrade_cost.ToString();
-        //upgrade_buttons.transform.Find("BulletFireSpeedUpgradeButton").transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>().text =
-        //    bullet_fire_speed_upgrade_cost.ToString();
-        //coin_text.GetComponent<TextMeshProUGUI>().text =
-        //    "Coins: " + coins;
     }
 }
