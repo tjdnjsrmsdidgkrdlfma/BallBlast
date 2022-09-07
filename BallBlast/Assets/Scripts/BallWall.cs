@@ -8,9 +8,13 @@ public class BallWall : MonoBehaviour
     float bounce_power;
     int index;
 
-    void Start()
+    GameObject gamemanager;
+
+    void Awake()
     {
         Initialization();
+
+        gamemanager = GameObject.Find("GameManager");
     }
 
     void Initialization()
@@ -48,5 +52,11 @@ public class BallWall : MonoBehaviour
                     break;
             }
         }
+        else if(other.gameObject.CompareTag("Coin")==true)
+        {
+            gamemanager.GetComponent<GameManager>().coins += other.gameObject.GetComponent<Coin>().money;
+            Destroy(other.gameObject);
+        }
     }
+
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerBullet
   - Ball
+  - Coin
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - PlayerBullet
   - PlayerBulletWall
   - Ball
-  - 
+  - Coin
   - 
   - 
   - 

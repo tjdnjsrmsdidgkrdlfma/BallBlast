@@ -8,9 +8,12 @@ public class Ball : MonoBehaviour
     public int split_time;
 
     int max_hit_point;
+    int random_coin_force;
+    int random_coin_money;
 
     GameObject ball_hit_point;
     GameObject ball_prefab;
+    GameObject coin_prefab;
 
     void Start()
     {
@@ -23,6 +26,7 @@ public class Ball : MonoBehaviour
 
         ball_hit_point = this.transform.Find("BallHitPoint").gameObject;
         ball_prefab = Resources.Load("Prefabs/Ball") as GameObject;
+        coin_prefab = Resources.Load("Prefabs/Coin") as GameObject;
 
         transform.localScale = new Vector2(1 + 0.5f * split_time, 1 + 0.5f * split_time); //1 1.5 2
 
@@ -46,6 +50,16 @@ public class Ball : MonoBehaviour
                 child_ball_right.GetComponent<Ball>().hit_point = max_hit_point == 1 ? 1 : max_hit_point / 2; //0이 되지 않게 하는 코드
                 child_ball_right.GetComponent<Ball>().split_time = split_time - 1;
                 child_ball_right.GetComponent<Ball>().GetComponent<Rigidbody2D>().AddForce(Vector2.right * 100);
+            }
+            else
+            {
+                GameObject coin = Instantiate(coin_prefab, this.gameObject.transform.position, Quaternion.identity);
+
+                random_coin_force = Random.Range(-100, 101);
+                random_coin_money = Random.Range(1, max_hit_point + 1);
+
+                coin.GetComponent<Rigidbody2D>().AddForce(Vector2.right * random_coin_force);
+                coin.GetComponent<Coin>().money = random_coin_money;
             }
             Destroy(this.gameObject);
         }

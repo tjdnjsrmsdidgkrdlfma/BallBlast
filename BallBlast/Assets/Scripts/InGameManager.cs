@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,11 +11,15 @@ public class InGameManager : MonoBehaviour
 
     GameObject create_ball;
     GameObject clear_text;
+    GameObject coin_text;
+    GameObject gamemanager;
     
     void Awake()
     {
         create_ball = GameObject.Find("CreateBall");
         clear_text = GameObject.Find("Canvas/RoundClearText");
+        coin_text = GameObject.Find("Canvas/CoinText");
+        gamemanager = GameObject.Find("GameManager");
     }
 
     void Update()
@@ -35,6 +40,7 @@ public class InGameManager : MonoBehaviour
                 }
             }
         }
+        coin_text.GetComponent<TextMeshProUGUI>().text = "Coins " + gamemanager.GetComponent<GameManager>().coins;
     }
 
     IEnumerator ShowClearText()
