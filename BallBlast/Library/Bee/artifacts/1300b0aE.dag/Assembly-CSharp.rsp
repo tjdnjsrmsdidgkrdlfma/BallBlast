@@ -382,6 +382,7 @@
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/InGameButtonManager.cs"
 "Assets/Scripts/InGameManager.cs"
+"Assets/Scripts/MainScreenManager.cs"
 "Assets/Scripts/Player.cs"
 "Assets/Scripts/PlayerBullet.cs"
 "Assets/Scripts/PlayerBulletWall.cs"

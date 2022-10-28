@@ -66,6 +66,7 @@ public class ButtonManager : MonoBehaviour
             bullet_damage_upgrade_cost.ToString();
             coins = gamemanager.GetComponent<GameManager>().coins;
             coin_text.GetComponent<TextMeshProUGUI>().text = "Coins: " + coins;
+            gamemanager.GetComponent<GameManager>().Save();
         }
         else
         {
@@ -84,10 +85,22 @@ public class ButtonManager : MonoBehaviour
             bullet_fire_speed_upgrade_cost.ToString();
             coins = gamemanager.GetComponent<GameManager>().coins;
             coin_text.GetComponent<TextMeshProUGUI>().text = "Coins: " + coins;
+            gamemanager.GetComponent<GameManager>().Save();
         }
         else
         {
 
         }
+    }
+
+    public void QuitButton()
+    {
+        gamemanager.GetComponent<GameManager>().Save();
+        Application.Quit();
+    }
+
+    public void NotButton()
+    {
+        GameObject.Find("Canvas/AskQuit").SetActive(false);
     }
 }

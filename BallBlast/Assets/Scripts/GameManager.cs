@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     public int bullet_damage;
     public float bullet_fire_speed;
-    
+
     public Data data;
     string file_path;
 
@@ -34,13 +34,12 @@ public class GameManager : MonoBehaviour
         {
             ResetSaveData();
             Save();
+            coins = 100;
         }
 
         MoveDataToLocal();
 
         #endregion
-
-        coins = 100;
     }
 
     #region 세이브 로드 관련 함수
@@ -80,6 +79,12 @@ public class GameManager : MonoBehaviour
     {
         bullet_damage = 1 + bullet_damage_upgrade * 10 / 100; //기본 1에서 10번 업그레이드 할 때 마다 1씩 증가
         bullet_fire_speed = 1.0f / (bullet_fire_speed_upgrade + 3); //기본 속도가 3shot/s
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) == true)
+            GameObject.Find("Canvas").transform.Find("AskQuit").gameObject.SetActive(true);
     }
 }
 

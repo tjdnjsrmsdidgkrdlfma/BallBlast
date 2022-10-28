@@ -22,4 +22,14 @@ public class InGameButtonManager : MonoBehaviour
         }
         paused = !paused;
     }
+
+    public void QuitButton()
+    {
+        Application.Quit();
+    }
+
+    public void NotButton()
+    {
+        GameObject.Find("Canvas/AskQuit").SetActive(false);
+    }
 }
